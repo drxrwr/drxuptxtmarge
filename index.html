@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gabung File TXT</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Gabung File TXT</h1>
+
+    <!-- Area Upload -->
+    <div id="dropzone" class="dropzone">
+      <p>Drag & Drop file .txt ke sini</p>
+      <input type="file" id="fileInput" accept=".txt" multiple hidden />
+      <button id="chooseFiles" class="btn">Pilih File</button>
+    </div>
+
+    <!-- Daftar File -->
+    <div class="file-list-container">
+      <h2>Daftar File</h2>
+      <ul id="fileList" class="file-list"></ul>
+      <p id="totalCount">Total nomor: 0</p>
+    </div>
+
+    <!-- Pilihan Urutan Gabungan -->
+    <div class="order-select-container" style="margin-bottom: 10px;">
+      <label for="orderSelect">Urutan gabungan:</label>
+      <select id="orderSelect" style="margin-left: 10px; padding: 6px; font-size: 16px;">
+        <option value="upload">Sesuai urutan upload</option>
+        <option value="smallest">Dari yang terkecil</option>
+      </select>
+    </div>
+
+    <!-- Tombol Upload Baru -->
+    <div style="margin-bottom: 10px;">
+      <button id="uploadNewBtn" class="btn" style="background-color: #3498db;">Upload Baru</button>
+    </div>
+
+    <!-- Input Nama File dan Download -->
+    <div class="output-container">
+      <input type="text" id="outputName" placeholder="Nama file hasil (opsional)" />
+      <button id="downloadBtn" class="btn">Download Gabungan</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
