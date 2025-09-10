@@ -198,3 +198,54 @@ downloadBtn.addEventListener("click", () => {
   a.click();
   URL.revokeObjectURL(url);
 });
+
+// Simpan urutan upload asli agar bisa kembali ke urutan upload
+let originalFilesData = [];
+
+// Modifikasi handleFiles agar simpan originalFilesData juga
+function handleFiles(selectedFiles) {
+  let filesToLoad = Array.from(selectedFiles).filter((file) =>
+    file.name.endsWith(".txt")
+  );
+
+  if (filesToLoad.length === 0) return;
+
+  let loadedCount = 0;
+  let tempFilesData = [];
+
+  filesToLoad.forEach((file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target.result
+        .split(/\r?\n/)
+        .filter((line) => line.trim() !== "");
+      tempFilesData.push({ name: file.name, content });
+      loadedCount++;
+      if (loadedCount === filesToLoad.length) {
+        filesData = tempFilesData;
+        originalFilesData = [...tempFilesData]; // simpan urutan asli
+        renderFileList();
+      }
+    };
+    reader.readAsText(file);
+  });
+}
+
+// Event listener dropdown urutan
+orderSelect.addEventListener("change", () => {
+  if (orderSelect.value === "smallest") {
+    // Urutkan filesData berdasarkan nama bersih
+    filesData = [...filesData].sort((a, b) => {
+      const nameA = cleanFileName(a.name).toLowerCase();
+      const nameB = cleanFileName(b.name).toLowerCase();
+      if (nameA < nameB) return -1;
+      if (nameA > nameB) return 1;
+      return 0;
+    });
+  } else if (orderSelect.value === "upload") {
+    // Kembalikan ke urutan upload asli
+    filesData = [...originalFilesData];
+  }
+  renderFileList();
+});
+
